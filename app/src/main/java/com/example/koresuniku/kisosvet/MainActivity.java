@@ -81,25 +81,25 @@ public class MainActivity extends AppCompatActivity {
         @Override
         //private int OldProgress = progress;
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            //oldProgress = progress;
-            if (oldProgress <= progress) {
-                StringBuilder sb = new StringBuilder("LED ALL ON +1");
-                //int pwmValue = 45000 + 100 * progress;
-                //sb.append(pwmValue);
+
+           // if (oldProgress <= progress) {
+                StringBuilder sb = new StringBuilder("LED ALL ON ");
+                int pwmValue = 45000 + 100 * progress;
+                sb.append(pwmValue);
                 new UDPTask().execute(sb.toString());
                 oldProgress = progress;
                 Log.i(LOG_TAG, "progress " + progress);
 
-            }
-            if (oldProgress >= progress) {
-                Log.i(LOG_TAG, "progress " + progress);
-
-                StringBuilder sb = new StringBuilder("LED ALL ON -1");
-                //int pwmValue = 45000 + 100 * progress;
-                //sb.append(pwmValue);
-                new UDPTask().execute(sb.toString());
-                oldProgress = progress;
-            }
+//            }
+//            if (oldProgress >= progress) {
+//                Log.i(LOG_TAG, "progress " + progress);
+//
+//                StringBuilder sb = new StringBuilder("LED ALL ON -1");
+//                //int pwmValue = 45000 + 100 * progress;
+//                //sb.append(pwmValue);
+//                new UDPTask().execute(sb.toString());
+//                oldProgress = progress;
+//            }
         }
 
         @Override
