@@ -108,4 +108,14 @@
         android:layout_marginTop="40dp"
         android:id="@+id/psu" />
 
+    <Button
+        android:text="Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/led_all"
+        android:layout_alignBaseline="@+id/psu"
+        android:layout_alignBottom="@+id/psu"
+        android:layout_alignRight="@+id/seekBar1"
+        android:layout_alignEnd="@+id/seekBar1" />
+
 </RelativeLayout>

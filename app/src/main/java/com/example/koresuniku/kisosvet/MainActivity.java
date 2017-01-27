@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
 
     private final static String PSU_OFF = "PSU OFF";
     private final static String PSU_ON = "PSU ON";
+    private final static String LED_ALL_ON = "LED ALL ON";
+    private final static String LED_ALL_OFF = "LED ALL OFF";
 
     ImageView led1;
     ImageView led2;
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView led4;
     SeekBar seekBar1;
     Button psu;
+    Button ledAll;
 
     boolean led1Toogle;
     boolean led2Toogle;
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         led4 = (ImageView) findViewById(R.id.led4_nw);
         seekBar1 = (SeekBar) findViewById(R.id.seekBar1);
         psu = (Button) findViewById(R.id.psu);
+        ledAll = (Button) findViewById(R.id.led_all);
 
         led1Toogle = false;
         led2Toogle = false;
@@ -70,12 +74,27 @@ public class MainActivity extends AppCompatActivity {
         psu.setText(PSU_OFF);
         psu.setOnClickListener(psuOnClickListener);
 
+        ledAll.setText(LED_ALL_OFF);
+        ledAll.setOnClickListener(ledAllClickListener);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
+
+    private View.OnClickListener ledAllClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (ledAll.getText().equals(LED_ALL_OFF)) {
+                ledAll.setText(LED_ALL_ON);
+                new UDPTask().execute(LED_ALL_ON);
+            } else {
+                new UDPTask().execute(LED_ALL_OFF);
+                ledAll.setText(LED_ALL_OFF);
+            }
+        }
+    };
 
     private SeekBar.OnSeekBarChangeListener seekBar1ChangeListener = new SeekBar.OnSeekBarChangeListener() {
         @Override
