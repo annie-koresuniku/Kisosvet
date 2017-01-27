@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
            // if (oldProgress <= progress) {
-                StringBuilder sb = new StringBuilder("LED ALL ON ");
+                StringBuilder sb = new StringBuilder("LED ALL NC");
                 int pwmValue = 45000 + 100 * progress;
                 sb.append(pwmValue);
                 new UDPTask().execute(sb.toString());
