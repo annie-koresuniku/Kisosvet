@@ -79,35 +79,6 @@
 
     </FrameLayout>
 
-    <SeekBar
-        android:layout_height="wrap_content"
-        android:id="@+id/seekBar2"
-        android:layout_marginTop="15dp"
-        android:layout_below="@+id/seekBar1"
-        android:layout_alignLeft="@+id/seekBar1"
-        android:layout_alignStart="@+id/seekBar1"
-        android:layout_width="340dp"
-        android:visibility="gone" />
-
-    <SeekBar
-        android:layout_height="wrap_content"
-        android:id="@+id/seekBar1"
-        android:progress="0"
-        android:layout_marginTop="30dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_width="340dp" />
-
-    <Button
-        android:text="Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/heatsink"
-        android:layout_alignLeft="@+id/seekBar1"
-        android:layout_alignStart="@+id/seekBar1"
-        android:layout_marginTop="40dp"
-        android:id="@+id/psu" />
-
     <Button
         android:text="Button"
         android:layout_width="wrap_content"
@@ -117,5 +88,33 @@
         android:layout_alignBottom="@+id/psu"
         android:layout_alignRight="@+id/seekBar1"
         android:layout_alignEnd="@+id/seekBar1" />
+
+    <Button
+        android:text="Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/psu"
+        android:layout_below="@+id/heatsink"
+        android:layout_alignLeft="@+id/seekBar1"
+        android:layout_alignStart="@+id/seekBar1"
+        android:layout_marginTop="24dp" />
+
+    <SeekBar
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/temperature"
+        android:layout_below="@+id/psu"
+        android:layout_alignLeft="@+id/psu"
+        android:layout_alignStart="@+id/psu"
+        android:layout_marginTop="10dp" />
+
+    <SeekBar
+        android:layout_height="wrap_content"
+        android:id="@+id/seekBar1"
+        android:progress="0"
+        android:layout_marginTop="31dp"
+        android:layout_width="340dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView led3;
     ImageView led4;
     SeekBar seekBar1;
+    SeekBar temperature;
     Button psu;
     Button ledAll;
 
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     boolean led3Toogle;
     boolean led4Toogle;
 
-    int oldProgress = -1;
+    int oldProgress = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         led3 = (ImageView) findViewById(R.id.led3_ww);
         led4 = (ImageView) findViewById(R.id.led4_nw);
         seekBar1 = (SeekBar) findViewById(R.id.seekBar1);
+        temperature = (SeekBar) findViewById(R.id.temperature);
         psu = (Button) findViewById(R.id.psu);
         ledAll = (Button) findViewById(R.id.led_all);
 
@@ -70,6 +72,11 @@ public class MainActivity extends AppCompatActivity {
         seekBar1.setKeyProgressIncrement(1);
         seekBar1.setMax(200);
         seekBar1.setOnSeekBarChangeListener(seekBar1ChangeListener);
+
+        temperature.setProgress(100);
+        temperature.setKeyProgressIncrement(1);
+        temperature.setMax(200);
+        temperature.setOnSeekBarChangeListener(temperatureChangeListener);
 
         psu.setText(PSU_OFF);
         psu.setOnClickListener(psuOnClickListener);
@@ -96,13 +103,63 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    private SeekBar.OnSeekBarChangeListener temperatureChangeListener = new SeekBar.OnSeekBarChangeListener() {
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            StringBuilder sb1 = new StringBuilder("LED 1 NC ");
+            StringBuilder sb2 = new StringBuilder("LED 2 NC ");
+            StringBuilder sb3 = new StringBuilder("LED 3 NC ");
+            StringBuilder sb4 = new StringBuilder("LED 4 NC ");
+
+            int pwmValueHot = 45000 + 100 * progress;
+            int pwmValueCold = 65000 - 100 * progress;
+
+            Log.i(LOG_TAG, "pwmValueHot " + pwmValueHot);
+            Log.i(LOG_TAG, "pwmValueCold " + pwmValueCold);
+
+//            sb1.append(pwmValueHot);
+//            sb2.append(pwmValueCold);
+//            sb3.append(pwmValueCold);
+//            sb4.append(pwmValueHot);
+
+            if (progress < oldProgress) {
+                sb1.append("-2");
+                sb2.append("+2");
+                sb3.append("+2");
+                sb4.append("-2");
+            } else {
+                sb1.append("+2");
+                sb2.append("-2");
+                sb3.append("-2");
+                sb4.append("+2");
+            }
+
+            new UDPTask().execute(sb1.toString());
+            new UDPTask().execute(sb2.toString());
+            new UDPTask().execute(sb3.toString());
+            new UDPTask().execute(sb4.toString());
+
+            oldProgress = progress;
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+
+        }
+    };
+
     private SeekBar.OnSeekBarChangeListener seekBar1ChangeListener = new SeekBar.OnSeekBarChangeListener() {
         @Override
         //private int OldProgress = progress;
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
            // if (oldProgress <= progress) {
-                StringBuilder sb = new StringBuilder("LED ALL NC");
+                StringBuilder sb = new StringBuilder("LED ALL NC ");
                 int pwmValue = 45000 + 100 * progress;
                 sb.append(pwmValue);
                 new UDPTask().execute(sb.toString());
