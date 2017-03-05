@@ -1,103 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="wrap_content"
-    android:id="@+id/main_scroll"
-    tools:context="com.example.koresuniku.kisosvet.MainActivity">
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    tools:context="com.example.koresuniku.kisosvet.MainActivity">
 
 
-    <ImageView
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        app:srcCompat="@drawable/heatsink"
-        android:id="@+id/heatsink"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="300dp" />
 
-    <FrameLayout
-        android:layout_width="230dp"
-        android:layout_height="230dp"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
-
-        <LinearLayout
-            android:orientation="vertical"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-            <LinearLayout
-                android:orientation="horizontal"
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                app:srcCompat="@drawable/heatsink"
+                android:id="@+id/heatsink"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/seekBar2"
+                android:layout_marginTop="100dp" />
+
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center">
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/seekBar2"
+                android:layout_marginTop="40dp">
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    app:srcCompat="@drawable/led_hot"
-                    android:id="@+id/led1_nw"
-                    android:layout_weight="1" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    app:srcCompat="@drawable/led_cold"
-                    android:id="@+id/led2_ww"
-                    android:layout_weight="1" />
-            </LinearLayout>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center">
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center">
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            app:srcCompat="@drawable/led_cold"
+                            android:id="@+id/led3_ww"
+                            android:layout_marginRight="6dp"
+                            android:layout_marginBottom="6dp" />
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    app:srcCompat="@drawable/led_cold"
-                    android:id="@+id/led3_ww"
-                    android:layout_weight="1" />
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            app:srcCompat="@drawable/led_hot"
+                            android:id="@+id/led4_nw"
+                            android:layout_marginLeft="6dp"
+                            android:layout_marginBottom="6dp" />
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    app:srcCompat="@drawable/led_hot"
-                    android:id="@+id/led4_nw"
-                    android:layout_weight="1" />
-            </LinearLayout>
-        </LinearLayout>
+                    </LinearLayout>
 
-    </FrameLayout>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            app:srcCompat="@drawable/led_hot"
+                            android:id="@+id/led1_nw"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginRight="6dp" />
+
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            app:srcCompat="@drawable/led_cold"
+                            android:id="@+id/led2_ww"
+                            android:layout_marginLeft="6dp"
+                            android:layout_marginTop="6dp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </FrameLayout>
+
+
+    <Button
+        android:text="Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/led_all"
+        android:layout_alignBaseline="@+id/psu_button"
+        android:layout_alignBottom="@+id/psu_button"
+        android:layout_alignRight="@+id/brightness_seekbar"
+        android:layout_alignEnd="@+id/brightness_seekbar" />
+
+    <Button
+        android:text="Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/psu_button"
+        android:layout_below="@+id/heatsink"
+        android:layout_alignLeft="@+id/brightness_seekbar"
+        android:layout_alignStart="@+id/brightness_seekbar"
+        android:layout_marginTop="24dp" />
+
+    <SeekBar
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/temperature_seekbar"
+        android:layout_below="@+id/psu_button"
+        android:layout_alignLeft="@+id/psu_button"
+        android:layout_alignStart="@+id/psu_button"
+        android:layout_marginTop="10dp" />
 
     <SeekBar
         android:layout_height="wrap_content"
-        android:id="@+id/seekBar1"
+        android:id="@+id/brightness_seekbar"
         android:progress="0"
-        android:layout_marginTop="34dp"
-        android:layout_width="520dp"
+        android:layout_marginTop="31dp"
+        android:layout_width="340dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <SeekBar
-        android:layout_width="520dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/seekBar2"
-        android:layout_marginTop="16dp"
-        android:layout_below="@+id/seekBar1"
-        android:layout_alignLeft="@+id/seekBar1"
-        android:layout_alignStart="@+id/seekBar1" />
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/temperature_textview"
+                android:layout_marginRight="27dp"
+                android:layout_above="@+id/frameLayout"
+                android:layout_toLeftOf="@+id/brightness_seekbar"
+                android:layout_toStartOf="@+id/brightness_seekbar"
+                android:layout_marginTop="70dp" />
 
-</RelativeLayout>
-    />
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/temperature_textview"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="11dp"
+                android:layout_marginEnd="11dp"
+                android:id="@+id/voltage" />
+        </RelativeLayout>
+
 </ScrollView>

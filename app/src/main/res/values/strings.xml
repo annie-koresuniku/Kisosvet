@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Kisosvet</string>
+
+    <string name="brightness_text">Brightness</string>
+    <string name="color_temperature_text">Color temperature</string>
+    <string name="temperature_text">Temperature: </string>
+    <string name="psu_button_text">PSU</string>
+    <string name="led_all_text">LED ALL</string>
+    <string name="voltage_text">Voltage: </string>
 </resources>

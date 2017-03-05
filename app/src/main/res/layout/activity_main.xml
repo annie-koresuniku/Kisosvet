@@ -83,38 +83,56 @@
         android:text="Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/led_all"
-        android:layout_alignBaseline="@+id/psu"
-        android:layout_alignBottom="@+id/psu"
-        android:layout_alignRight="@+id/seekBar1"
-        android:layout_alignEnd="@+id/seekBar1" />
+        android:id="@+id/led_all_button"
+        android:layout_alignBaseline="@+id/psu_button"
+        android:layout_alignBottom="@+id/psu_button"
+        android:layout_alignRight="@+id/brightness_seekbar"
+        android:layout_alignEnd="@+id/brightness_seekbar" />
 
     <Button
         android:text="Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/psu"
+        android:id="@+id/psu_button"
         android:layout_below="@+id/heatsink"
-        android:layout_alignLeft="@+id/seekBar1"
-        android:layout_alignStart="@+id/seekBar1"
+        android:layout_alignLeft="@+id/brightness_seekbar"
+        android:layout_alignStart="@+id/brightness_seekbar"
         android:layout_marginTop="24dp" />
 
     <SeekBar
         android:layout_width="340dp"
         android:layout_height="wrap_content"
-        android:id="@+id/temperature"
-        android:layout_below="@+id/psu"
-        android:layout_alignLeft="@+id/psu"
-        android:layout_alignStart="@+id/psu"
+        android:id="@+id/temperature_seekbar"
+        android:layout_below="@+id/psu_button"
+        android:layout_alignLeft="@+id/psu_button"
+        android:layout_alignStart="@+id/psu_button"
         android:layout_marginTop="10dp" />
 
     <SeekBar
         android:layout_height="wrap_content"
-        android:id="@+id/seekBar1"
+        android:id="@+id/brightness_seekbar"
         android:progress="0"
         android:layout_marginTop="31dp"
         android:layout_width="340dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/temperature_textview"
+        android:layout_alignRight="@+id/brightness_seekbar"
+        android:layout_alignEnd="@+id/brightness_seekbar"
+        android:id="@+id/voltage" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/heatsink"
+        android:layout_alignLeft="@+id/brightness_seekbar"
+        android:layout_alignStart="@+id/brightness_seekbar"
+        android:id="@+id/temperature_textview" />
 
 </RelativeLayout>
