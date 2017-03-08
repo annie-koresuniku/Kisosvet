@@ -132,13 +132,13 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/temperature_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="12dp"
+                        android:layout_margin="6dp"
                         android:layout_weight="1"
                         android:text="TextView"
                         tools:text="@string/temperature_text" />
@@ -147,7 +147,7 @@
                         android:id="@+id/voltage_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="12dp"
+                        android:layout_margin="6dp"
                         android:layout_weight="1"
                         android:text="@string/voltage_text" />
 
