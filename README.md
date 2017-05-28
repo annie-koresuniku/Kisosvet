@@ -20,5 +20,5 @@
 (led's quantity, led's type, power stage configuration, hardware and software options)
 - two-factor authorization
 - ability to control multiple <a href="https://github.com/alicepergatta/KisosvetV2">Kisosvets</a> from the only application
-- labeling different "<a href="https://github.com/alicepergatta/KisosvetV2">Kisosvets</a>
+- labeling different <a href="https://github.com/alicepergatta/KisosvetV2">Kisosvets</a>
 - toggle manual\automatic fan control
