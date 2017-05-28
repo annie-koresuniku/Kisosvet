@@ -1,4 +1,4 @@
-# **Client application for "Kisosvet" illumination solution.**
+# **Client application for "<a href="https://github.com/alicepergatta/KisosvetV2">Kisosvet</a>" illumination solution.**
 
 
 ![](http://i.piccy.info/i9/70bf446e2c46f7b939384bdc852296c9/1495725771/18478/1148749/Screenshot_20170525_175038.png)
