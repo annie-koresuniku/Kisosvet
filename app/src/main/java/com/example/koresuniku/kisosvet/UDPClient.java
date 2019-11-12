@@ -1,10 +1,8 @@
 package com.example.koresuniku.kisosvet;
 
-
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.StrictMode;
-import android.text.Editable;
 import android.util.Log;
 
 import java.io.IOException;
@@ -54,9 +52,6 @@ public class UDPClient {
         SharedPreferences sharedPreferences = KisosvetApplication.instance.getSharedPreferences("main_sp", MODE_PRIVATE);
         String ip = sharedPreferences.getString("ip", "0.0.0.0");
         int port = sharedPreferences.getInt("port",0);
-
-       // if (ip == null && port != null)
-
 
         if (ip.equals("0.0.0.0") || port == 0) return null;
 

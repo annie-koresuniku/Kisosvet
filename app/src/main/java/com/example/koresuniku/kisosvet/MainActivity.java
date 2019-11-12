@@ -3,15 +3,12 @@ package com.example.koresuniku.kisosvet;
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.StrictMode;
-import android.preference.PreferenceManager;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.Menu;
@@ -26,7 +23,6 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.util.ArrayList;
-import java.util.prefs.Preferences;
 
 public class MainActivity extends AppCompatActivity {
     private final static String LOG_TAG = MainActivity.class.getSimpleName();
@@ -166,10 +162,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("main_sp", MODE_PRIVATE);
         String ip = sharedPreferences.getString("ip", "0.0.0.0");
         int port = sharedPreferences.getInt("port", 0);
-        //if (ip != null && port != null) {
-            ipPortEditText.setText(ip + ":" + port);
-       // }
-
+        ipPortEditText.setText(ip + ":" + port);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
