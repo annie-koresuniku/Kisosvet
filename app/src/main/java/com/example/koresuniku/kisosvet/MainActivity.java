@@ -235,11 +235,12 @@ public class MainActivity extends AppCompatActivity {
 
            // if (oldProgress <= progress) {
                 StringBuilder sb = new StringBuilder("LED ALL NC ");
-                int pwmValue = 42000 + 120 * progress;
+                int pwmValue = 1000 + 120 * progress;
                 sb.append(pwmValue);
-                UDPClient.client(sb.toString());
+            Log.i(LOG_TAG, "progress " + sb.toString());
+
+            UDPClient.client(sb.toString());
                 oldProgress = progress;
-                Log.i(LOG_TAG, "progress " + progress);
 
         }
 

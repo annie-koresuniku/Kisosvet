@@ -1,6 +1,7 @@
 package com.example.koresuniku.kisosvet;
 
 
+import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.util.Log;
 
@@ -78,31 +79,39 @@ public class UDPClient {
         return null;
     }
 
-    public static void client(String str) {
-        try {
-            DatagramSocket client_socket = new DatagramSocket(5000);
-            InetAddress IPAddress = InetAddress.getByName("192.168.1.105");
+    public static void client(final String str) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
 
-            Log.i(LOG_TAG, "using second method");
 
-            send_data = str.getBytes("ASCII");
-            DatagramPacket send_packet = new DatagramPacket(send_data, str.length(), IPAddress, 5000);
-            client_socket.send(send_packet);
-            DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
-            client_socket.receive(receivePacket);
-            modifiedSentence = new String(receivePacket.getData());
+                try {
+                    DatagramSocket client_socket = new DatagramSocket(5000);
+                    InetAddress IPAddress = InetAddress.getByName("192.168.1.105");
 
-            modifiedSentence = null;
-            client_socket.close();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        } catch (SocketException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+                    Log.i(LOG_TAG, "using second method");
+
+                    send_data = str.getBytes("ASCII");
+                    DatagramPacket send_packet = new DatagramPacket(send_data, str.length(), IPAddress, 5000);
+                    client_socket.send(send_packet);
+                    DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+                    client_socket.receive(receivePacket);
+                    modifiedSentence = new String(receivePacket.getData());
+
+                    modifiedSentence = null;
+                    client_socket.close();
+                } catch (UnknownHostException e) {
+                    e.printStackTrace();
+                } catch (SocketException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        }.execute();
     }
 
 
