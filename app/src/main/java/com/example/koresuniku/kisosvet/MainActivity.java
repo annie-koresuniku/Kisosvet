@@ -1,19 +1,30 @@
 package com.example.koresuniku.kisosvet;
 
+import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.util.ArrayList;
+import java.util.prefs.Preferences;
 
 public class MainActivity extends AppCompatActivity {
     private final static String LOG_TAG = MainActivity.class.getSimpleName();
@@ -37,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
     static TextView temperatureTextView;
     static TextView voltageTextView;
     TextView colorTemperatureTextView;
+    TextInputLayout ipPortTextInput;
+    TextInputEditText ipPortEditText;
+    ToggleButton ipPortToggleButton;
 
     static MainActivity mActivity;
 
@@ -49,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
     static boolean continueReceivingTempAndVoltageData = true;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
         temperatureTextView = (TextView) findViewById(R.id.temperature_textview);
         voltageTextView = (TextView) findViewById(R.id.voltage_textview);
         colorTemperatureTextView = (TextView) findViewById(R.id.color_temperature_textview);
+        ipPortTextInput = findViewById(R.id.ipPortTextInput);
+        ipPortToggleButton = findViewById(R.id.ipPortToggleButton);
+        ipPortEditText = findViewById(R.id.ipPortEditText);
 
         colorTemperatureTextView.setText(
                 getApplicationContext().getResources().getString(R.string.color_temperature_text));
@@ -109,6 +127,62 @@ public class MainActivity extends AppCompatActivity {
         voltageTextView.setText(Constants.TEXT_VOLTAGE);
 
         enableCheckingUpdates();
+
+        ipPortTextInput.setEnabled(false);
+
+
+        ipPortToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            boolean isOnFromError = false;
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                if (isOnFromError) {
+//                    isOnFromError = false;
+//                    ipPortTextInput.setEnabled(true);
+//                    Toast.makeText(MainActivity.this, "fe!", Toast.LENGTH_SHORT).show();
+//
+//                    return;
+//                }
+
+                ipPortTextInput.setEnabled(b);
+
+                if (!b) {
+                    SharedPreferences sharedPreferences = getSharedPreferences("main_sp", MODE_PRIVATE);
+                    Editable editable = ipPortEditText.getText();
+
+                    if (editable != null && editable.toString().contains(":")) {
+                        String[] parts = editable.toString().split(":");
+                        sharedPreferences.edit().putString("ip", parts[0]).apply();
+                        sharedPreferences.edit().putString("port", parts[1]).apply();
+                    } else {
+                        Toast.makeText(MainActivity.this, "Wrong syntax!", Toast.LENGTH_SHORT).show();
+                        isOnFromError = true;
+                        ipPortToggleButton.setChecked(true);
+                        ipPortTextInput.setEnabled(true);
+                    }
+                }
+            }
+        });
+
+        SharedPreferences sharedPreferences = getSharedPreferences("main_sp", MODE_PRIVATE);
+        String ip = sharedPreferences.getString("ip", null);
+        String port = sharedPreferences.getString("port", null);
+        if (ip != null && port != null) {
+            ipPortEditText.setText(ip + ":" + port);
+        }
+
+    //    ipPortEditText
+//        ipPortEditText.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {}
+//        });
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

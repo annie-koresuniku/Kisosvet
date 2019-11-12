@@ -195,5 +195,36 @@
                 tools:text="@string/led_all_text" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/ipPortTextInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:textColorHint="@android:color/tertiary_text_dark"
+                android:layout_weight="0.5">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/ipPortEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@android:color/background_dark"
+
+                    android:hint="IP:port" />
+            </android.support.design.widget.TextInputLayout>
+
+            <ToggleButton
+                android:id="@+id/ipPortToggleButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="12dp"
+                android:layout_weight="0.85"
+                android:text="ToggleButton" />
+        </LinearLayout>
+
     </LinearLayout>
 </ScrollView>
