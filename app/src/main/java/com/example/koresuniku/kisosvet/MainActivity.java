@@ -235,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
 
            // if (oldProgress <= progress) {
                 StringBuilder sb = new StringBuilder("LED ALL NC ");
-                int pwmValue = 1000 + 120 * progress;
+                int pwmValue = 1000 + (64000 * progress) / 200;//120 * progress;
                 sb.append(pwmValue);
             Log.i(LOG_TAG, "progress " + sb.toString());
 

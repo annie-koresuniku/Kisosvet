@@ -14,6 +14,11 @@ import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Executor;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class UDPClient {
     private static final String LOG_TAG = UDPClient.class.getSimpleName();
@@ -23,6 +28,17 @@ public class UDPClient {
     static byte[] send_data = new byte[256];
     static byte[] receiveData = new byte[256];
     static String modifiedSentence;
+
+  //  static {
+  public static int corePoolSize = 60;
+    public static  int maximumPoolSize = 80;
+    public static int keepAliveTime = 10;
+    public static  BlockingQueue<Runnable> workQueue = new LinkedBlockingQueue<Runnable>(maximumPoolSize);
+        public static Executor threadPoolExecutor = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, TimeUnit.SECONDS, workQueue);
+
+  //  }
+
+    public static boolean isProcessing = false;
 
     public UDPClient() {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -80,26 +96,30 @@ public class UDPClient {
     }
 
     public static void client(final String str) {
+
+        if (isProcessing) return;
+
+        isProcessing = true;
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-
-
+                DatagramSocket client_socket = null;
                 try {
-                    DatagramSocket client_socket = new DatagramSocket(5000);
+                    client_socket = new DatagramSocket(5000);
                     InetAddress IPAddress = InetAddress.getByName("192.168.1.105");
 
-                    Log.i(LOG_TAG, "using second method");
+                    Log.i(LOG_TAG, "using second method: " + str);
 
                     send_data = str.getBytes("ASCII");
                     DatagramPacket send_packet = new DatagramPacket(send_data, str.length(), IPAddress, 5000);
                     client_socket.send(send_packet);
-                    DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
-                    client_socket.receive(receivePacket);
-                    modifiedSentence = new String(receivePacket.getData());
-
-                    modifiedSentence = null;
-                    client_socket.close();
+//                    DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+//                    client_socket.receive(receivePacket);
+//                    modifiedSentence = new String(receivePacket.getData());
+//
+//                    modifiedSentence = null;
+                   // client_socket.close();
+                 //   isProcessing = false;
                 } catch (UnknownHostException e) {
                     e.printStackTrace();
                 } catch (SocketException e) {
@@ -108,10 +128,15 @@ public class UDPClient {
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
+                } finally {
+                    if (client_socket != null) {
+                        client_socket.close();
+                    }
+                    isProcessing = false;
                 }
                 return null;
             }
-        }.execute();
+        }.executeOnExecutor(threadPoolExecutor);
     }
 
 
