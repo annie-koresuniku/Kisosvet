@@ -1,8 +1,10 @@
 package com.example.koresuniku.kisosvet;
 
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.StrictMode;
+import android.text.Editable;
 import android.util.Log;
 
 import java.io.IOException;
@@ -19,6 +21,8 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class UDPClient {
     private static final String LOG_TAG = UDPClient.class.getSimpleName();
@@ -46,13 +50,23 @@ public class UDPClient {
     }
 
     public static ArrayList<String> clienNeedToReceiveData(String str) {
+
+        SharedPreferences sharedPreferences = KisosvetApplication.instance.getSharedPreferences("main_sp", MODE_PRIVATE);
+        String ip = sharedPreferences.getString("ip", "0.0.0.0");
+        int port = sharedPreferences.getInt("port",0);
+
+       // if (ip == null && port != null)
+
+
+        if (ip.equals("0.0.0.0") || port == 0) return null;
+
         try {
-            DatagramSocket client_socket = new DatagramSocket(5000);
-            InetAddress IPAddress = InetAddress.getByName("192.168.1.105");
+            DatagramSocket client_socket = new DatagramSocket(port);
+            InetAddress IPAddress = InetAddress.getByName(ip);
 
             Log.i(LOG_TAG, "using first method");
             send_data = str.getBytes("ASCII");
-            DatagramPacket send_packet = new DatagramPacket(send_data, str.length(), IPAddress, 5000);
+            DatagramPacket send_packet = new DatagramPacket(send_data, str.length(), IPAddress, port);
             client_socket.setSoTimeout(500);
             client_socket.send(send_packet);
             ArrayList<String> unformattedStrings = new ArrayList<>();
@@ -99,19 +113,30 @@ public class UDPClient {
 
         if (isProcessing) return;
 
+
+
         isProcessing = true;
+
+
+        SharedPreferences sharedPreferences = KisosvetApplication.instance.getSharedPreferences("main_sp", MODE_PRIVATE);
+        final String ip = sharedPreferences.getString("ip", "0.0.0.0");
+        final int port = sharedPreferences.getInt("port",0);
+
+
+        if (ip.equals("0.0.0.0") || port == 0) return;
+
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
                 DatagramSocket client_socket = null;
                 try {
-                    client_socket = new DatagramSocket(5000);
-                    InetAddress IPAddress = InetAddress.getByName("192.168.1.105");
+                    client_socket = new DatagramSocket(port);
+                    InetAddress IPAddress = InetAddress.getByName(ip);
 
                     Log.i(LOG_TAG, "using second method: " + str);
 
                     send_data = str.getBytes("ASCII");
-                    DatagramPacket send_packet = new DatagramPacket(send_data, str.length(), IPAddress, 5000);
+                    DatagramPacket send_packet = new DatagramPacket(send_data, str.length(), IPAddress, port);
                     client_socket.send(send_packet);
 //                    DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 //                    client_socket.receive(receivePacket);

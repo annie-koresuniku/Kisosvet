@@ -135,24 +135,17 @@ public class MainActivity extends AppCompatActivity {
             boolean isOnFromError = false;
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                if (isOnFromError) {
-//                    isOnFromError = false;
-//                    ipPortTextInput.setEnabled(true);
-//                    Toast.makeText(MainActivity.this, "fe!", Toast.LENGTH_SHORT).show();
-//
-//                    return;
-//                }
-
                 ipPortTextInput.setEnabled(b);
 
                 if (!b) {
                     SharedPreferences sharedPreferences = getSharedPreferences("main_sp", MODE_PRIVATE);
                     Editable editable = ipPortEditText.getText();
 
-                    if (editable != null && editable.toString().contains(":")) {
+                    if (editable != null && editable.toString().contains(":") && editable.toString().split(":")[1].matches("\\d+")) {
                         String[] parts = editable.toString().split(":");
+
                         sharedPreferences.edit().putString("ip", parts[0]).apply();
-                        sharedPreferences.edit().putString("port", parts[1]).apply();
+                        sharedPreferences.edit().putInt("port", Integer.parseInt(parts[1])).apply();
                     } else {
                         Toast.makeText(MainActivity.this, "Wrong syntax!", Toast.LENGTH_SHORT).show();
                         isOnFromError = true;
@@ -164,25 +157,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         SharedPreferences sharedPreferences = getSharedPreferences("main_sp", MODE_PRIVATE);
-        String ip = sharedPreferences.getString("ip", null);
-        String port = sharedPreferences.getString("port", null);
-        if (ip != null && port != null) {
+        String ip = sharedPreferences.getString("ip", "0.0.0.0");
+        int port = sharedPreferences.getInt("port", 0);
+        //if (ip != null && port != null) {
             ipPortEditText.setText(ip + ":" + port);
-        }
+       // }
 
-    //    ipPortEditText
-//        ipPortEditText.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {}
-//        });
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
