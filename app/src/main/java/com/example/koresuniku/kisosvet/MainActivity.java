@@ -10,8 +10,10 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -141,7 +143,12 @@ public class MainActivity extends AppCompatActivity {
                     SharedPreferences sharedPreferences = getSharedPreferences("main_sp", MODE_PRIVATE);
                     Editable editable = ipPortEditText.getText();
 
-                    if (editable != null && editable.toString().contains(":") && editable.toString().split(":")[1].matches("\\d+")) {
+
+                    if (editable != null
+                            && editable.toString().contains(":")
+                            && editable.toString().split(":").length > 1
+                            && Patterns.IP_ADDRESS.matcher(editable.toString().split(":")[0]).matches()
+                            && editable.toString().split(":")[1].matches("\\d+")) {
                         String[] parts = editable.toString().split(":");
 
                         sharedPreferences.edit().putString("ip", parts[0]).apply();
